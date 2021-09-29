@@ -14,7 +14,7 @@
             </div>
         </div>
         <div class="float-right mt-3">
-            <a href="{{route('events.index')}}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Povratak na listu festivala</a>
+            <a href="{{route('admin.events.index')}}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Povratak na listu festivala</a>
         </div>
     </div>
 

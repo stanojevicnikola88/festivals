@@ -7,7 +7,7 @@
 
         <div class="card">
             <div class="card-body">
-                <form action="{{route('events.update', $event->id)}}" method="POST" enctype="multipart/form-data">
+                <form action="{{route('admin.events.update', $event->id)}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="row">
@@ -66,7 +66,7 @@
                         </div>
                     </div>
                     <div class="float-right">
-                        <a href="{{route('events.index')}}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Povratak na listu festivala</a>
+                        <a href="{{route('admin.events.index')}}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Povratak na listu festivala</a>
                         <button class="btn btn-primary" type="submit"><i class="fas fa-save"></i> Izmeni podatke</button>
                     </div>
                 </form>

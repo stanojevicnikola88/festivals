@@ -51,7 +51,7 @@ class AdminEventController extends Controller
             'description' => $request['description']
         ]);
 
-        return redirect()->route('events.index');
+        return redirect()->route('admin.events.index');
     }
 
     public function show($id)
@@ -96,7 +96,7 @@ class AdminEventController extends Controller
             'description' => $request['description']
         ]);
 
-        return redirect()->route('events.index');
+        return redirect()->route('admin.events.index');
     }
 
     public function destroy(Request $request): RedirectResponse

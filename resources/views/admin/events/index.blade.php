@@ -24,7 +24,7 @@
         @foreach($events as $event)
             <tr>
                 <td>{{$event->id}}</td>
-                <td><a href="{{route('events.show', $event->id)}}">{{$event->title}}</a></td>
+                <td><a href="{{route('admin.events.show', $event->id)}}">{{$event->title}}</a></td>
                 <td>{{$event->start}}</td>
                 <td>{{$event->end}}</td>
                 <td>{{$event->country->title}}</td>
@@ -40,8 +40,8 @@
                 <td>{{$event->created_at}}</td>
                 <td>{{$event->updated_at}}</td>
                 <td>
-                    <a href="{{route('events.edit', $event->id)}}" class="btn btn-sm btn-warning"><i class="fas fa-pen fa-sm"></i> Izmeni</a>
-                    <form action="{{route('events.destroy', $event->id)}}" method="POST">
+                    <a href="{{route('admin.events.edit', $event->id)}}" class="btn btn-sm btn-warning"><i class="fas fa-pen fa-sm"></i> Izmeni</a>
+                    <form action="{{route('admin.events.destroy', $event->id)}}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-sm btn-danger mt-3"><i class="fas fa-trash fa-sm"></i> Obriši</button>
@@ -57,7 +57,7 @@
     </div>
 
     <div class="d-flex justify-content-end">
-        <a href="{{route('events.create')}}" class="btn btn-success"><i class="fas fa-plus fa-sm"></i> Dodaj novi festival</a>
+        <a href="{{route('admin.events.create')}}" class="btn btn-success"><i class="fas fa-plus fa-sm"></i> Dodaj novi festival</a>
     </div>
 
 @endsection

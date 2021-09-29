@@ -7,7 +7,7 @@
 
         <div class="card">
             <div class="card-body">
-                <form action="{{route('events.store')}}" method="POST" enctype="multipart/form-data">
+                <form action="{{route('admin.events.store')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col-md-4">
