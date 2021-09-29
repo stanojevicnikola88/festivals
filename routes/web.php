@@ -15,13 +15,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Authentication Routes
+Auth::routes();
 
-Route::get('events', [AdminEventController::class, 'index'])->name('events.index');
-Route::get('events/create', [AdminEventController::class, 'create'])->name('events.create');
-Route::post('events', [AdminEventController::class, 'store'])->name('events.store');
-Route::get('events/{id}', [AdminEventController::class, 'show'])->name('events.show');
-Route::get('events/{id}/edit', [AdminEventController::class, 'edit'])->name('events.edit');
-Route::put('events/{id}', [AdminEventController::class, 'update'])->name('events.update');
-Route::delete('events/{id}', [AdminEventController::class, 'destroy'])->name('events.destroy');
+Route::get('/', [EventController::class, 'index']);
+
+Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('auth')->group(function () {
+    Route::get('events', [AdminEventController::class, 'index'])->name('events.index');
+    Route::get('events/create', [AdminEventController::class, 'create'])->name('events.create');
+    Route::post('events', [AdminEventController::class, 'store'])->name('events.store');
+    Route::get('events/{id}', [AdminEventController::class, 'show'])->name('events.show');
+    Route::get('events/{id}/edit', [AdminEventController::class, 'edit'])->name('events.edit');
+    Route::put('events/{id}', [AdminEventController::class, 'update'])->name('events.update');
+    Route::delete('events/{id}', [AdminEventController::class, 'destroy'])->name('events.destroy');
+});
 
 //Route::get('event/{id}', [EventController::class, 'show'])->name('event.show');
+
