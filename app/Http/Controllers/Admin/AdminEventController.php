@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Event;
+use App\Models\EventUser;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -33,6 +35,9 @@ class AdminEventController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
+        $featuredImage = $request['featured_image'];
+        $featuredImage->move(public_path('uploads'), $featuredImage->getClientOriginalName());
+
         $event = Event::create([
             'title' => $request['title'],
             'start' => $request['start'],
@@ -42,11 +47,23 @@ class AdminEventController extends Controller
             'address' => $request['address'],
             'latitude' => $request['latitude'],
             'longitude' => $request['longitude'],
-            'featured_image' => $request['featured_image'],
+            'featured_image' => $featuredImage->getClientOriginalName(),
             'description' => $request['description']
         ]);
 
         return redirect()->route('events.index');
+    }
+
+    public function show($id)
+    {
+        $event = Event::where('id', $id)->with('users')->firstOrFail();
+
+        $attendingUsersCount = EventUser::where('event_id', '=', $id)->count();
+
+        return view('admin.events.show', [
+            'event' => $event,
+            'attendingUsersCount' => $attendingUsersCount
+        ]);
     }
 
     public function edit($id)
