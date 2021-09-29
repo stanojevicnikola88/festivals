@@ -18,8 +18,10 @@ class CreateEventsTable extends Migration
             $table->string('title');
             $table->dateTime('start');
             $table->dateTime('end');
-            $table->string('country');
-            $table->string('city');
+            $table->unsignedBigInteger('country_id');
+            $table->foreign('country_id')->references('id')->on('countries');
+            $table->unsignedBigInteger('city_id');
+            $table->foreign('city_id')->references('id')->on('cities');
             $table->string('address');
             $table->string('latitude');
             $table->string('longitude');
