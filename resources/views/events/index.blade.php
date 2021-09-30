@@ -9,7 +9,7 @@
             @foreach($events as $event)
                 <div class="card m-3" style="width: 18rem;">
                     @if($event->featured_image)
-                        <img class="card-img-top" src="{{ asset('/uploads/'.$event->featured_image) }}" alt="{{$event->featured_image}}">
+                        <img class="card-img-top object-fit card-image" src="{{ asset('/uploads/'.$event->featured_image) }}" alt="{{$event->featured_image}}">
                     @endif
                     <div class="card-body">
                         <h5 class="card-title">{{$event->title}}</h5>

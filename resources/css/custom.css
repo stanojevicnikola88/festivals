@@ -1,0 +1,21 @@
+.object-fit {
+    object-fit: cover;
+}
+
+.cover-image {
+    height: 300px;
+}
+
+.card-image {
+    height: 300px;
+}
+
+.table-image {
+    height: 100px;
+    width: 100px;
+}
+
+.info-image {
+    height: 200px;
+    width: 200px;
+}
