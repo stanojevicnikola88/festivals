@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="container">
-        <h1 class="h3 my-3">Prikaz prijavljenih osoba za festival ({{$attendingUsersCount}})</h1>
+        <h1 class="h3 my-3">Prikaz prijavljenih osoba za festival (Trenutno prijavljenih osoba: {{$attendingUsersCount}})</h1>
         <div class="card">
             <div class="card-body">
                 <ol>
