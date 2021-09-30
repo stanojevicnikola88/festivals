@@ -9,10 +9,11 @@
                 @if($event->featured_image)
                     <img class="card-img-top object-fit cover-image" src="{{ asset('/uploads/'.$event->featured_image) }}" alt="{{$event->featured_image}}">
                 @endif
-                <h2>{{$event->title}}</h2>
+                <h2 class="py-3">{{$event->title}}</h2>
                 <p>{{$event->start}} - {{$event->end}}</p>
                 <p>{{$event->country->title}} / {{$event->city->title}} / {{$event->address}}</p>
                 <p>{{$event->description}}</p>
+                    <iframe src="http://maps.google.com/maps?q={{$event->latitude}},{{$event->longitude}}&z=15&output=embed"  width="600" height="450"></iframe>
             </div>
             <div class="card-footer">
                 <button data-toggle="modal" data-target="#attendModal" class="btn btn-danger float-right"><i class="fas fa-plus fa-sm"></i> Prijavi se!</button>
