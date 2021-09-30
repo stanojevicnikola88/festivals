@@ -1,4 +1,3 @@
-<!-- Success message alert -->
 @if (session('success'))
     <div id="status" class="alert alert-success my-2">
         {{ session('success') }}
