@@ -10002,3 +10002,11 @@ h3 {
     border-color: #dee2e6;
   }
 }
+.object-fit {
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.cover-image {
+  height: 300px;
+}
