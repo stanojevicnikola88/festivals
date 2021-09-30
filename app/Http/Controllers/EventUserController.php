@@ -19,6 +19,6 @@ class EventUserController extends Controller
 
         $user->events()->attach($request['event_id']);
 
-        return redirect()->route('event.index');
+        return redirect()->route('event.index')->with('success', 'Uspešno ste se prijavili za festival!');
     }
 }

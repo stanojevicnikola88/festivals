@@ -2,6 +2,8 @@
 
 @section('content')
 
+    @include('includes.alerts')
+
     <div class="container">
         <div class="row">
             @foreach($events as $event)
