@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminEventController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\EventUserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,7 +22,9 @@ Auth::routes();
 Route::get('/', [EventController::class, 'index'])->name('event.index');
 Route::get('event/{id}', [EventController::class, 'show'])->name('event.show');
 
-Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('auth')->group(function () {
+Route::post('event/subscribe', [EventUserController::class, 'store'])->name('event.subscribe');
+
+Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
     Route::get('events', [AdminEventController::class, 'index'])->name('events.index');
     Route::get('events/create', [AdminEventController::class, 'create'])->name('events.create');
     Route::post('events', [AdminEventController::class, 'store'])->name('events.store');
