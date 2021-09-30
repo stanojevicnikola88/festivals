@@ -7,7 +7,6 @@ use App\Models\City;
 use App\Models\Country;
 use App\Models\Event;
 use App\Models\EventUser;
-use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -51,7 +50,7 @@ class AdminEventController extends Controller
             'description' => $request['description']
         ]);
 
-        return redirect()->route('admin.events.index');
+        return redirect()->route('admin.events.index')->with('success', 'Novi festival je uspešno kreiran.');
     }
 
     public function show($id)
@@ -96,13 +95,13 @@ class AdminEventController extends Controller
             'description' => $request['description']
         ]);
 
-        return redirect()->route('admin.events.index');
+        return redirect()->route('admin.events.index')->with('success', 'Podaci su uspešno izmenjeni.');
     }
 
     public function destroy(Request $request): RedirectResponse
     {
         Event::destroy($request['id']);
 
-        return back();
+        return back()->with('success', 'Festival je uspešno obrisan.');
     }
 }

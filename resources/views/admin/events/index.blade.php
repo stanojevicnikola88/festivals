@@ -2,6 +2,8 @@
 
 @section('content')
 
+    @include('admin.includes.alerts')
+
     <table class="table table-bordered">
         <thead>
         <tr>
@@ -33,7 +35,7 @@
                 <td>{{$event->longitude}}, {{$event->latitude}}</td>
                 <td>
                     @if($event->featured_image)
-                        <img src="{{ asset('/uploads/'.$event->featured_image) }}" alt="{{$event->featured_image}}">
+                        <img src="{{ asset('/uploads/'.$event->featured_image) }}" class="object-fit table-image" alt="{{$event->featured_image}}">
                     @endif
                 </td>
                 <td>{{$event->description}}</td>
