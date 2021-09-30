@@ -35,6 +35,17 @@ class AdminEventController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
+        $request->validate([
+            'title' => 'required|min:3',
+            'start' => 'required',
+            'end' => 'required',
+            'country_id' => 'required',
+            'city_id' => 'required',
+            'address' => 'required',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
+        ]);
+
         $featuredImage = $request['featured_image'];
         $featuredImage->move(public_path('uploads'), $featuredImage->getClientOriginalName());
 
@@ -81,6 +92,17 @@ class AdminEventController extends Controller
 
     public function update(Request $request): RedirectResponse
     {
+        $request->validate([
+            'title' => 'required|min:3',
+            'start' => 'required',
+            'end' => 'required',
+            'country_id' => 'required',
+            'city_id' => 'required',
+            'address' => 'required',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
+        ]);
+
         $event = Event::findOrFail($request['id']);
 
         if($request['featured_image']) {

@@ -3,6 +3,9 @@
 @section('content')
 
     <div class="container">
+
+        @include('admin.includes.alerts')
+
         <h1 class="h3 my-3">Dodavanje novog festivala</h1>
 
         <div class="card">
@@ -13,20 +16,20 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="title">Naziv festivala</label>
-                                <input type="text" class="form-control" id="title" name="title">
+                                <input type="text" class="form-control" id="title" name="title" required>
                             </div>
                             <div class="form-group">
                                 <label for="start">Datum/vreme početka događaja</label>
-                                <input type="datetime-local" class="form-control" id="start" name="start">
+                                <input type="datetime-local" class="form-control" id="start" name="start" required>
                             </div><div class="form-group">
                                 <label for="end">Datum/vreme završetka događaja</label>
-                                <input type="datetime-local" class="form-control" id="end" name="end">
+                                <input type="datetime-local" class="form-control" id="end" name="end" required>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="country_id">Država</label>
-                                <select name="country_id" id="country_id" class="form-control">
+                                <select name="country_id" id="country_id" class="form-control" required>
                                     @foreach($countries as $country)
                                         <option value="{{$country->id}}">{{$country->title}}</option>
                                     @endforeach
@@ -34,7 +37,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="city_id">Grad</label>
-                                <select name="city_id" id="city_id" class="form-control">
+                                <select name="city_id" id="city_id" class="form-control" required>
                                     @foreach($cities as $city)
                                         <option value="{{$city->id}}">{{$city->title}}</option>
                                     @endforeach
@@ -42,7 +45,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="address">Adresa</label>
-                                <input type="text" class="form-control map-input" id="address-input" name="address">
+                                <input type="text" class="form-control map-input" id="address-input" name="address" required>
                             </div>
                             <div id="address-map-container" style="width:100%;height:400px; ">
                                 <div style="width: 100%; height: 100%" id="address-map"></div>
@@ -55,11 +58,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="latitude">Latitude</label>
-                                <input type="text" class="form-control" id="address-latitude" name="latitude">
+                                <input type="text" class="form-control" id="address-latitude" name="latitude" required>
                             </div>
                             <div class="form-group">
                                 <label for="longitude">Longitude</label>
-                                <input type="text" class="form-control" id="address-longitude" name="longitude">
+                                <input type="text" class="form-control" id="address-longitude" name="longitude" required>
                             </div>
                             <div class="form-group">
                                 <label for="featured_image">Slika</label>
