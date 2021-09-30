@@ -14,8 +14,7 @@ class EventUserController extends Controller
             'first_name' => $request['first_name'],
             'last_name' => $request['last_name'],
             'email' => $request['email'],
-            'password' => '',
-            'is_admin' => 0
+            'password' => null,
         ]);
 
         $user->events()->attach($request['event_id']);
