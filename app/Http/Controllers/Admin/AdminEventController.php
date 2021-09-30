@@ -9,6 +9,7 @@ use App\Models\Event;
 use App\Models\EventUser;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class AdminEventController extends Controller
 {
@@ -37,7 +38,7 @@ class AdminEventController extends Controller
         $featuredImage = $request['featured_image'];
         $featuredImage->move(public_path('uploads'), $featuredImage->getClientOriginalName());
 
-        $event = Event::create([
+        Event::create([
             'title' => $request['title'],
             'start' => $request['start'],
             'end' => $request['end'],
@@ -82,6 +83,17 @@ class AdminEventController extends Controller
     {
         $event = Event::findOrFail($request['id']);
 
+        if($request['featured_image']) {
+            $old_photo = $event->featured_image;
+            $file_path = public_path('uploads') . $old_photo;
+
+            if(File::exists($file_path)) {
+                unlink($file_path);
+            }
+
+            $request['featured_image']->move(public_path('uploads'), $request['featured_image']->getClientOriginalName());
+        }
+
         $event->update([
             'title' => $request['title'],
             'start' => $request['start'],
@@ -91,7 +103,7 @@ class AdminEventController extends Controller
             'address' => $request['address'],
             'latitude' => $request['latitude'],
             'longitude' => $request['longitude'],
-            'featured_image' => $request['featured_image'],
+            'featured_image' => $request['featured_image'] ? $request['featured_image']->getClientOriginalName() : $event->featured_image,
             'description' => $request['description']
         ]);
 
