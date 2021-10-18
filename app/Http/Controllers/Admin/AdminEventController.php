@@ -3,13 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreFestivalRequest;
+use App\Http\Requests\UpdateFestivalRequest;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Event;
 use App\Models\EventUser;
+use App\Services\ImageUploaderService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 
 class AdminEventController extends Controller
 {
@@ -33,34 +35,29 @@ class AdminEventController extends Controller
         ]);
     }
 
-    public function store(Request $request): RedirectResponse
+//    public function store(StoreFestivalRequest $request): RedirectResponse
+//    {
+//        $validated = $request->validated();
+//
+//        $featuredImage = $request['featured_image'];
+//        $featuredImage->move(public_path('uploads'), $featuredImage->getClientOriginalName());
+//
+//        Event::create($validated);
+//
+//        return redirect()->route('admin.events.index')->with('success', 'Novi festival je uspešno kreiran.');
+//    }
+
+    public function store(StoreFestivalRequest $request): RedirectResponse
     {
-        $request->validate([
-            'title' => 'required|min:3',
-            'start' => 'required',
-            'end' => 'required',
-            'country_id' => 'required',
-            'city_id' => 'required',
-            'address' => 'required',
-            'latitude' => 'required|numeric',
-            'longitude' => 'required|numeric',
-        ]);
+        $validated = $request->validated();
 
-        $featuredImage = $request['featured_image'];
-        $featuredImage->move(public_path('uploads'), $featuredImage->getClientOriginalName());
+        if(array_key_exists('featured_image', $validated)) {
+            $uploadService = new ImageUploaderService;
+            $uploadService->imageUpload($request['featured_image'], false);
+            $validated['featured_image'] = $validated['featured_image']->getClientOriginalName();
+        }
 
-        Event::create([
-            'title' => $request['title'],
-            'start' => $request['start'],
-            'end' => $request['end'],
-            'country_id' => $request['country_id'],
-            'city_id' => $request['city_id'],
-            'address' => $request['address'],
-            'latitude' => $request['latitude'],
-            'longitude' => $request['longitude'],
-            'featured_image' => $featuredImage->getClientOriginalName(),
-            'description' => $request['description']
-        ]);
+        Event::create($validated);
 
         return redirect()->route('admin.events.index')->with('success', 'Novi festival je uspešno kreiran.');
     }
@@ -90,44 +87,41 @@ class AdminEventController extends Controller
         ]);
     }
 
-    public function update(Request $request): RedirectResponse
-    {
-        $request->validate([
-            'title' => 'required|min:3',
-            'start' => 'required',
-            'end' => 'required',
-            'country_id' => 'required',
-            'city_id' => 'required',
-            'address' => 'required',
-            'latitude' => 'required|numeric',
-            'longitude' => 'required|numeric',
-        ]);
+//    public function update(UpdateFestivalRequest $request): RedirectResponse
+//    {
+//        $event = Event::findOrFail($request['id']);
+//
+//        $validated = $request->validated();
+//
+//        if(array_key_exists('featured_image', $validated)) {
+//            $old_photo = $event->featured_image;
+//            $file_path = public_path('uploads') . $old_photo;
+//
+//            if(File::exists($file_path)) {
+//                unlink($file_path);
+//            }
+//
+//            $validated['featured_image']->move(public_path('uploads'), $validated['featured_image']->getClientOriginalName());
+//            $validated['featured_image'] = $validated['featured_image']->getClientOriginalName();
+//        }
+//
+//        $event->update($validated);
+//
+//        return redirect()->route('admin.events.index')->with('success', 'Podaci su uspešno izmenjeni.');
+//    }
 
+    public function update(UpdateFestivalRequest $request): RedirectResponse
+    {
         $event = Event::findOrFail($request['id']);
 
-        if($request['featured_image']) {
-            $old_photo = $event->featured_image;
-            $file_path = public_path('uploads') . $old_photo;
+        $validated = $request->validated();
 
-            if(File::exists($file_path)) {
-                unlink($file_path);
-            }
-
-            $request['featured_image']->move(public_path('uploads'), $request['featured_image']->getClientOriginalName());
+        if(array_key_exists('featured_image', $validated)) {
+            (new ImageUploaderService())->imageUpload($request['featured_image'], true);
+            $validated['featured_image'] = $validated['featured_image']->getClientOriginalName();
         }
 
-        $event->update([
-            'title' => $request['title'],
-            'start' => $request['start'],
-            'end' => $request['end'],
-            'country_id' => $request['country_id'],
-            'city_id' => $request['city_id'],
-            'address' => $request['address'],
-            'latitude' => $request['latitude'],
-            'longitude' => $request['longitude'],
-            'featured_image' => $request['featured_image'] ? $request['featured_image']->getClientOriginalName() : $event->featured_image,
-            'description' => $request['description']
-        ]);
+        $event->update($validated);
 
         return redirect()->route('admin.events.index')->with('success', 'Podaci su uspešno izmenjeni.');
     }
