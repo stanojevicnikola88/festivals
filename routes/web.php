@@ -19,11 +19,14 @@ use Illuminate\Support\Facades\Route;
 // Authentication Routes
 Auth::routes();
 
+//Event routes
 Route::get('/', [EventController::class, 'index'])->name('event.index');
 Route::get('event/{id}', [EventController::class, 'show'])->name('event.show');
 
+//Subscribe to event route
 Route::post('event/subscribe', [EventUserController::class, 'store'])->name('event.subscribe');
 
+//Admin routes
 Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
     Route::get('events', [AdminEventController::class, 'index'])->name('events.index');
     Route::get('events/create', [AdminEventController::class, 'create'])->name('events.create');
